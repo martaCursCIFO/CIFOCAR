@@ -1,5 +1,5 @@
 <?php
-	//CONTROLADOR USUARIO 
+	//CONTROLADOR USUARIO
 	// implementa las operaciones que puede realizar el usuario
 	class Usuario extends Controller{
 
