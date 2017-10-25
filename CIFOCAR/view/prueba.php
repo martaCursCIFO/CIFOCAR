@@ -20,7 +20,7 @@
 		
 		<section id="content" class="exito">
 			<h2>Exito</h2>
-			<p>estamos haciendo una prueba!!!!!</p>
+			<p>estamos haciendo una prueba!!!!</p>
 			<?php echo '<p>'.$mensaje.'</p>'; ?>
 		</section>
 		
