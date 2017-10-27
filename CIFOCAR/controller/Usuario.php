@@ -5,6 +5,10 @@
 
 		//PROCEDIMIENTO PARA REGISTRAR UN USUARIO
 		public function registro(){
+		    
+		    //comprobar que el usuari es ADMIN
+		    if(!Login::isAdmin())
+		        throw new Exception('Debes ser Administrador');
 
 			//si no llegan los datos a guardar
 			if(empty($_POST['guardar'])){

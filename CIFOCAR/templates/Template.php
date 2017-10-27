@@ -10,8 +10,8 @@
 					</a>
 				</figure>
 				<hgroup>
-					<h1>RMF - RobS Micro Framework</h1>
-					<h2>Para el desarrollo de aplicaciones web</h2>
+					<h1>Concesionario CIFOCAR</h1>
+					<h2>Compra y Venta de vehículos de segunda mano</h2>
 				</hgroup>
 			</header>
 		<?php }
@@ -49,13 +49,12 @@
 			<nav>
 				<ul class="menu">
 					<li><a href="index.php">Inicio</a></li>
-					<li><a href="index.php?controlador=Usuario&operacion=registro">Registro</a></li>
 				</ul>
 				<?php 
 				//pone el menú del administrador
 				if($usuario && $usuario->admin){	?>
 				<ul class="menu">
-					<li><a href="#">ADMIN</a></li>
+					<li><a href="index.php?controlador=Usuario&operacion=registro">Registro</a></li>
 				</ul>
 							
 				<?php }	?>
