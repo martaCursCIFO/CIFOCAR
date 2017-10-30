@@ -68,7 +68,17 @@ class UsuarioModel{
         
         $us = $resultado->fetch_object('UsuarioModel');
         $resultado->free();
+        return $us;
+    }
+    
+    
+    public static function getUsuarioPorId($id){
+        $user_table = Config::get()->db_user_table;
+        $consulta = "SELECT * FROM $user_table WHERE id='$id';";
+        $resultado = Database::get()->query($consulta);
         
+        $us = $resultado->fetch_object('UsuarioModel');
+        $resultado->free();
         return $us;
     }
     
@@ -85,9 +95,15 @@ class UsuarioModel{
     }
     
     // Este metodo recupera todos los usuarios
-    public static function getUsuarios(){
+    public static function getUsuarios($l=10, $o=0, $t='user', $c='privilegio', $co='admin', $so='ASC'){
         // preparar consulta
-        $consulta = "SELECT * FROM usuarios;";
+
+        $consulta = "SELECT * FROM usuarios
+                         WHERE $c LIKE '%$t%'
+                         ORDER BY $co $so
+		                 LIMIT $l
+		                 OFFSET $o;";
+        
         // conectar BDD
         $conexion = Database::get();
         // ejecutar consulta

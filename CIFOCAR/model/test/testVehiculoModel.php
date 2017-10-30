@@ -6,7 +6,7 @@ require '../VehiculoModel.php';
 //TEST GUARDAR VEHICULO
 //creamos un objeto vehículo
 /*$vehiculo = new VehiculoModel();
- $vehiculo->matricula = "3333ABC";
+ $vehiculo->matricula = "5555ABC";
  $vehiculo->modelo = "A4";
  $vehiculo->color = "blanco";
  $vehiculo->precio_venta = 11000;
@@ -17,7 +17,7 @@ require '../VehiculoModel.php';
  $vehiculo->any_matriculacion = 2000;
  $vehiculo->detalles ="presenta desperfectos en el frontal";
  $vehiculo->imagen = "aqui va la ruta de la imagen";
- $vehiculo->marca = "Audi";
+ $vehiculo->marca = "BMW";
  $vehiculo->vendedor = "";
  var_dump($vehiculo);
  $vehiculo->guardar();*/

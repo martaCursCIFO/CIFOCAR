@@ -13,12 +13,13 @@
 		<?php 
 			Template::header(); //pone el header
 
-			if(!$usuario) Template::login(); //pone el formulario de login
+			if(!$usuarioM) Template::login(); //pone el formulario de login
 			else Template::logout($usuario); //pone el formulario de logout
 			
 			Template::menu($usuario); //pone el menú
+			var_dump($usuarioM);
 		?>
-		
+	
 		<section id="content">
 			<a class="derecha" href="index.php?controlador=Usuario&operacion=baja">
 				<img src="images/buttons/delete.png" alt="darse de baja" class="logo" />
@@ -30,14 +31,14 @@
 			<form method="post" enctype="multipart/form-data" autocomplete="off">
 				
 				<figure>
-					<img class="imagenactual" src="<?php echo $usuario->imagen;?>" 
-						alt="<?php echo  $usuario->user;?>" />
+					<img class="imagenactual" src="<?php echo $usuarioM->imagen;?>" 
+						alt="<?php echo  $usuarioM->user;?>" />
 				</figure>
 				
 				
 				<label>User:</label>
 				<input type="text" name="user" required="required" 
-					readonly="readonly" value="<?php echo $usuario->user;?>" /><br/>
+					readonly="readonly" value="<?php echo $usuarioM->user;?>" /><br/>
 				
 				<label>Password actual:</label>
 				<input type="password" name="password" required="required" /><br/>
@@ -49,11 +50,11 @@
 				
 				<label>Nombre:</label>
 				<input type="text" name="nombre" required="required" 
-					value="<?php echo $usuario->nombre;?>"/><br/>
+					value="<?php echo $usuarioM->nombre;?>"/><br/>
 				
 				<label>Email:</label>
 				<input type="email" name="email" required="required" 
-					value="<?php echo $usuario->email;?>"/><br/>
+					value="<?php echo $usuarioM->email;?>"/><br/>
 				
 				<label>Nueva imagen:</label>
 				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_image_size;?>" />		

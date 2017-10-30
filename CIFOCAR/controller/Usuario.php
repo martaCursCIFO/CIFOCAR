@@ -55,7 +55,6 @@
 			}
 		}
 		
-
 		//PROCEDIMIENTO PARA MODIFICAR UN USUARIO
 		public function modificacion(){
 			//si no hay usuario identificado... error
@@ -128,6 +127,82 @@
 			}
 		}
 		
+		//PROCEDIMIENTO PARA EDITAR UN USUARIO (ADMIN)
+		public function editar($u2){
+		    //si no hay usuario identificado... error
+		    if(!Login::isAdmin())
+		        throw new Exception('Debes ser admin');
+		        
+		       $usuarioRecuperado = UsuarioModel::getUsuarioPorId($u2);
+		       if(!$usuarioRecuperado)
+		           throw new Exception('No se encuentra el usuario');
+		           
+		        
+		        //si no llegan los datos a modificar
+		        if(empty($_POST['modificar'])){
+		            //mostramos la vista del formulario
+		            $datos = array();
+		            $datos['usuario'] = Login::getUsuario();
+		            $datos['usuarioM'] = $usuarioRecuperado;
+		            $datos['max_image_size'] = Config::get()->user_image_max_size;
+		            $this->load_view('view/usuarios/modificacion.php', $datos);
+		            
+		            //si llegan los datos por POST
+		        }else{
+		            //recuperar los datos actuales del usuario
+		            $u = Login::getUsuario();
+		            $conexion = Database::get();
+		            
+		            //comprueba que el usuario se valide correctamente
+		            $p = MD5($conexion->real_escape_string($_POST['password']));
+		            if($u->password != $p)
+		                throw new Exception('El password no coincide, no se puede procesar la modificación');
+		                
+		                //recupera el nuevo password (si se desea cambiar)
+		                if(!empty($_POST['newpassword']))
+		                    $u->password = MD5($conexion->real_escape_string($_POST['newpassword']));
+		                    
+		                    //recupera el nuevo nombre y el nuevo email
+		                    $u->nombre = $conexion->real_escape_string($_POST['nombre']);
+		                    $u->email = $conexion->real_escape_string($_POST['email']);
+		                    
+		                    //TRATAMIENTO DE LA NUEVA IMAGEN DE PERFIL (si se indicó)
+		                    if($_FILES['imagen']['error']!=4){
+		                        //el directorio y el tam_maximo se configuran en el fichero config.php
+		                        $dir = Config::get()->user_image_directory;
+		                        $tam = Config::get()->user_image_max_size;
+		                        
+		                        //prepara la carga de nueva imagen
+		                        $upload = new Upload($_FILES['imagen'], $dir, $tam);
+		                        
+		                        //guarda la imagen antigua en una var para borrarla
+		                        //después si todo ha funcionado correctamente
+		                        $old_img = $u->imagen;
+		                        
+		                        //sube la nueva imagen
+		                        $u->imagen = $upload->upload_image();
+		                    }
+		                    
+		                    //modificar el usuario en BDD
+		                    if(!$u->actualizar())
+		                        throw new Exception('No se pudo modificar');
+		                        
+		                        //borrado de la imagen antigua (si se cambió)
+		                        //hay que evitar que se borre la imagen por defecto
+		                        if(!empty($old_img) && $old_img!= Config::get()->default_user_image)
+		                            @unlink($old_img);
+		                            
+		                            //hace de nuevo "login" para actualizar los datos del usuario
+		                            //desde la BDD a la variable de sesión.
+		                            Login::log_in($u->user, $u->password);
+		                            
+		                            //mostrar la vista de éxito
+		                            $datos = array();
+		                            $datos['usuario'] = Login::getUsuario();
+		                            $datos['mensaje'] = 'Modificación OK';
+		                            $this->load_view('view/exito.php', $datos);
+		        }
+		}
 		
 		//PROCEDIMIENTO PARA DAR DE BAJA UN USUARIO
 		//solicita confirmación
@@ -185,16 +260,16 @@
 		        $f->sentidoOrden = htmlspecialchars($_POST['sentidoOrden']);
 		        
 		        //guarda el filtro en un var de sesión
-		        $_SESSION['filtroRecetas'] = serialize($f);
+		        $_SESSION['filtrousuarios'] = serialize($f);
 		    }
 		    
 		    //si me piden QUITAR un filtro
 		    if(!empty($_POST['quitarFiltro']))
-		        unset($_SESSION['filtroRecetas']);
+		        unset($_SESSION['filtrousuarios']);
 		        
 		        
 		        //comprobar si hay filtro
-		        $filtro = empty($_SESSION['filtroRecetas'])? false : unserialize($_SESSION['filtroRecetas']);
+		        $filtro = empty($_SESSION['filtrousuarios'])? false : unserialize($_SESSION['filtrousuarios']);
 		        
 		        //para la paginación
 		        $num = 5; //numero de resultados por página
@@ -231,6 +306,26 @@
 		                $this->load_view('view/usuarios/listarusuarios.php', $datos);
 		}
 		
-		
+		//PROCEDIMIENTO PARA VER LOS DETALLES DE UN USUARIO
+		public function ver($id=0){
+		    //comprobar que llega la ID
+		    if(!$id)
+		        throw new Exception('No se ha indicado la user  del usuario');
+		        
+		        //recuperar la usuario con la ID seleccionada
+		        $this->load('model/UsuarioModel.php');
+		        $usuario = UsuarioModel::getUsuarioPorId($id);
+		        
+		        //comprobar que la usuario existe
+		        if(!$usuario)
+		            throw new Exception('No existe la usuario con código '.$id);
+		          
+		            //cargar la vista de detalles
+		            $datos = array();
+		            $datos['usuario'] = Login::getUsuario();
+		            $datos['usuarioM'] = $usuario;
+		            $this->load_view('view/usuarios/detallesusuario.php', $datos);
+		}
+	
 	}
-	?>
+		?>

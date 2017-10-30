@@ -33,6 +33,12 @@
 				<label>Nombre:</label>
 				<input type="text" name="nombre" required="required"/><br/>
 				
+				<label>Privilegio:</label>
+				<input type="number" name="privilegio" required="required"/><br/>
+				
+				<label>admin:</label>
+				<input type="number" name="admin" required="required"/><br/>
+				
 				<label>Email:</label>
 				<input type="email" name="email" required="required"/><br/>
 				

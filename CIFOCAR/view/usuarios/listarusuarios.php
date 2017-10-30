@@ -33,14 +33,14 @@
 					<option value="id">id</option>
 					<option value="user" selected="selected">user</option>
 					<option value="privilegio">privilegio</option>
-					<option value="fecha">tiempo</option>
+					<option value="fecha">fecha</option>
 				</select>
 				<label>Orden:</label>
 				<select name="campoOrden">
 					<option value="id">id</option>
 					<option value="user">usuario</option>
 					<option value="privilegio">privilegio</option>
-					<option value="fecha">tiempo</option>
+					<option value="fecha">fecha</option>
 				</select>
 				<select name="sentidoOrden">
 					<option value="ASC">ascendente</option>
