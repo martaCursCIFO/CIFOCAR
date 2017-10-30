@@ -2,57 +2,67 @@
 	//CONTROLADOR vehiculo 
 	class Vehiculo extends Controller{
 
-		//PROCEDIMIENTO PARA GUARDAR UNA NUEVA vehiculo
-		public function nueva(){
-		    //comprobar si eres administrador
-		    if(!Login::isAdmin())
-		        throw new Exception('Debes ser ADMIN');
-
-			//si no llegan los datos a guardar
-			if(empty($_POST['guardar'])){
-				//mostramos la vista del formulario
-				$datos = array();
-				$datos['usuario'] = Login::getUsuario();
-				$this->load_view('view/vehiculos/nueva.php', $datos);
-			
-			//si llegan los datos por POST
-			}else{
-				//crear una instancia de vehiculo
-				$this->load('model/vehiculoModel.php');
-				$vehiculo = new vehiculoModel();
-				$conexion = Database::get();
-				
-				//tomar los datos que vienen por POST
-				//real_escape_string evita las SQL Injections
-				$vehiculo->nombre = $conexion->real_escape_string($_POST['nombre']);
-				$vehiculo->descripcion = $conexion->real_escape_string($_POST['descripcion']);
-				$vehiculo->ingredientes = $conexion->real_escape_string($_POST['ingredientes']);
-				$vehiculo->dificultad = $conexion->real_escape_string($_POST['dificultad']);
-				$vehiculo->tiempo = $conexion->real_escape_string($_POST['tiempo']);
-			
-				//recuperar el fichero
-				$fichero = $_FILES['imagen'];
-				
-				$destino = 'images/vehiculos/';
-				$tam_maximo = 1000000; //1MB aprox
-				$renombrar = true;
-				
-				$upload = new Upload($fichero, $destino, $tam_maximo, $renombrar);
-				$vehiculo->imagen = $upload->upload_image();
-							
-				//guardar la vehiculo en BDD
-				if(!$vehiculo->guardar()){
-				    unlink($vehiculo->imagen);
-					throw new Exception('No se pudo guardar la vehiculo');
-				}
-				
-				//mostrar la vista de éxito
-				$datos = array();
-				$datos['usuario'] = Login::getUsuario();
-				$datos['mensaje'] = 'Operación de guardado completada con éxito';
-				$this->load_view('view/exito.php', $datos);
-			}
-		}
+		//PROCEDIMIENTO PARA GUARDAR UN VEHICULO
+	    public function nueva(){
+	        //comprobar si eres responsalbe de compras
+	        if(!Login::getUsuario() || login::getUsuario()->privilegio!=1)
+	            throw new Exception('Debes ser Responsable de Compras');
+	            
+	            //comprova si t'han enviat el formulari
+	            if(empty($_POST['guardar'])){ //si no l'han enviat...
+	                //mostramos la vista del formulario
+	                $datos = array();
+	                $datos['usuario'] = Login::getUsuario();
+	                $this->load_view('view/vehiculos/nuevoVehiculo.php', $datos);
+	                
+	                //si llegan los datos por POST
+	            }else{
+	                //crear un vehiculo nuevo
+	                $this->load('model/VehiculoModel.php');
+	                $vehiculo = new VehiculoModel();
+	                $conexion = Database::get();
+	                
+	                //tomar los datos que vienen por POST
+	                //real_escape_string evita las SQL Injections
+	                $vehiculo->matricula = $conexion->real_escape_string($_POST['matricula']);
+	                $vehiculo->modelo = $conexion->real_escape_string($_POST['modelo']);
+	                $vehiculo->color = $conexion->real_escape_string($_POST['color']);
+	                $vehiculo->precio_venta = $conexion->real_escape_string($_POST['precio_venta']);
+	                $vehiculo->precio_compra = $conexion->real_escape_string($_POST['precio_compra']);
+	                $vehiculo->kms = $conexion->real_escape_string($_POST['kms']);
+	                $vehiculo->caballos = $conexion->real_escape_string($_POST['caballos']);
+	                $vehiculo->estado = $conexion->real_escape_string($_POST['estado']);
+	                $vehiculo->any_matriculacion = $conexion->real_escape_string($_POST['matriculacion']);
+	                $vehiculo->detalles = $conexion->real_escape_string($_POST['detalles']);
+	                $vehiculo->imagen = $conexion->real_escape_string($_POST['imagen']);
+	                $vehiculo->marca = $conexion->real_escape_string($_POST['marca']);
+	                
+	       
+	                
+	                //SI EL FICHERO ES OBLIGATORIO:
+	                $fichero = $_FILES['imagen']; //fichero
+	                $destino = 'images/vehiculos/'; //ruta de destino en el servidor
+	                $tam_maximo = 1000000; //1MB aprox
+	                $renombrar = true; //cambia el nombre del fichero original para evitar sobreescrituras
+	                
+	                $upload = new Upload($fichero, $destino, $tam_maximo, $renombrar);
+	                $vehiculo->imagen = $upload->upload_image();
+	                
+	                
+	                //guardar el vehiculo en BDD
+	                if(!$vehiculo->guardar()){
+	                    unlink($vehiculo->imagen);
+	                    throw new Exception('No se pudo guardar el vehiculo');
+	                }
+	                
+	                
+	                //mostrar la vista de éxito
+	                $datos = array();
+	                $datos['usuario'] = Login::getUsuario();
+	                $datos['mensaje'] = 'Operación de registro completada con éxito';
+	                $this->load_view('view/exito.php', $datos);
+	            }
+	    }
 		
 		
 		//PROCEDIMIENTO PARA LISTAR LOS vehiculos
