@@ -30,7 +30,7 @@
 		
 		
 		//método que me recupera el total de registros (incluso con filtros)
-		public static function getTotal($t='', $c='nombre'){
+		public static function getTotal($t='', $c='marca'){
 		    $consulta = "SELECT * FROM vehiculos
                          WHERE $c LIKE '%$t%'";
 		    

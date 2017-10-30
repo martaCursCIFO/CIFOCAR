@@ -1,7 +1,7 @@
 <?php
-	class Template{	
-		
-		//PONE EL HEADER DE LA PAGINA
+class Template{
+    
+    //PONE EL HEADER DE LA PAGINA
 		public static function header(){	?>
 			<header>
 				<figure>
@@ -49,15 +49,24 @@
 			<nav>
 				<ul class="menu">
 					<li><a href="index.php">Inicio</a></li>
-				</ul>
+					</ul>
 				<?php 
-				//pone el menú del administrador
+		
+				//pone el menu del usuario
+				if($usuario){	?>
+				<ul class="menu">
+					<li><a href="index.php?controlador=Vehiculo&operacion=listarvehiculos">Listar Vehiculos</a></li>
+				</ul>
+				<?php } 
+				
+				//pone el menu del administrador
 				if($usuario && $usuario->admin){	?>
 				<ul class="menu">
 					<li><a href="index.php?controlador=Usuario&operacion=registro">Registro</a></li>
+					<li><a href="index.php?controlador=Usuario&operacion=listarusuarios">Listar Usuarios</a></li>
 				</ul>
-							
 				<?php }	?>
+				
 			</nav>
 		<?php }
 		

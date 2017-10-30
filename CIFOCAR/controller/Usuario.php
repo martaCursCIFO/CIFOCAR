@@ -171,5 +171,66 @@
 			}
 		}
 		
+		//PROCEDIMIENTO PARA LISTAR LAS USUARIOS
+		public function listarusuarios($pagina){
+		    $this->load('model/UsuarioModel.php');
+		    
+		    //si me piden APLICAR un filtro
+		    if(!empty($_POST['filtrar'])){
+		        //recupera el filtro a aplicar
+		        $f = new stdClass(); //filtro
+		        $f->texto = htmlspecialchars($_POST['texto']);
+		        $f->campo = htmlspecialchars($_POST['campo']);
+		        $f->campoOrden = htmlspecialchars($_POST['campoOrden']);
+		        $f->sentidoOrden = htmlspecialchars($_POST['sentidoOrden']);
+		        
+		        //guarda el filtro en un var de sesión
+		        $_SESSION['filtroRecetas'] = serialize($f);
+		    }
+		    
+		    //si me piden QUITAR un filtro
+		    if(!empty($_POST['quitarFiltro']))
+		        unset($_SESSION['filtroRecetas']);
+		        
+		        
+		        //comprobar si hay filtro
+		        $filtro = empty($_SESSION['filtroRecetas'])? false : unserialize($_SESSION['filtroRecetas']);
+		        
+		        //para la paginación
+		        $num = 5; //numero de resultados por página
+		        $pagina = abs(intval($pagina)); //para evitar cosas raras por url
+		        $pagina = empty($pagina)? 1 : $pagina; //página a mostrar
+		        $offset = $num*($pagina-1); //offset
+		        
+		        //si no hay que filtrar los resultados...
+		        if(!$filtro){
+		            //recupera todas las recetas
+		            $usuarios = UsuarioModel::getUsuarios($num, $offset);
+		            //total de registros (para paginación)
+		            $totalRegistros = UsuarioModel::getTotal();
+		        }else{
+		            //recupera las recetas con el filtro aplicado
+		            $usuarios = UsuarioModel::getUsuarios($num, $offset, $filtro->texto, $filtro->campo, $filtro->campoOrden, $filtro->sentidoOrden);
+		            //total de registros (para paginación)
+		            $totalRegistros = UsuarioModel::getTotal($filtro->texto, $filtro->campo);
+		        }
+		        
+		        //cargar la vista del listado
+		        $datos = array();
+		        $datos['usuario'] = Login::getUsuario();
+		        $datos['usuarios'] = $usuarios;
+		        $datos['filtro'] = $filtro;
+		        $datos['paginaActual'] = $pagina;
+		        $datos['paginas'] = ceil($totalRegistros/$num); //total de páginas (para paginación)
+		        $datos['totalRegistros'] = $totalRegistros;
+		        $datos['regPorPagina'] = $num;
+		        
+		        if(Login::isAdmin())
+		            $this->load_view('view/usuarios/listarusuarios.php', $datos);
+		            else
+		                $this->load_view('view/usuarios/listarusuarios.php', $datos);
+		}
+		
+		
 	}
-?>
+	?>
