@@ -81,6 +81,7 @@
 				}
 				?>
 			</table>
+			<input type="button" value="Imprime esta pagina" onclick="window.print()">
 			<ul class="paginacion">
 				<?php
     				//poner enlace a la página anterior

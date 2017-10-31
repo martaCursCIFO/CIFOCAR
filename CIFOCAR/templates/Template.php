@@ -58,7 +58,6 @@ class Template{
 					<li><a href="index.php?controlador=Vehiculo&operacion=nuevoVehiculo">Nuevo Vehículo</a></li>
 					<li><a href="index.php?controlador=Marca&operacion=nuevaMarca">Nueva Marca</a></li>
 					<li><a href="index.php?controlador=Marca&operacion=listarmarcas">Listar Marcas</a></li>
-					<li><a href="index.php?controlador=Usuario&operacion=modificarUsuario">Modificar Usuario</a></li>
 				</ul>
 				<?php } 
 				
@@ -75,7 +74,6 @@ class Template{
 					<li><a href="index.php?controlador=Vehiculo&operacion=listarvehiculos">Listar Vehiculos</a></li>
 					<li><a href="index.php?controlador=Usuario&operacion=listarusuarios">Listar Usuarios</a></li>
 					<li><a href="index.php?controlador=Usuario&operacion=registro">Nuevo Usuario</a></li>
-					
 				</ul>
 				<?php }	?>
 				
