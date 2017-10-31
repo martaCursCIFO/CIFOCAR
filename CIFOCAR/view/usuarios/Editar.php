@@ -5,7 +5,7 @@
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="UTF-8">
-		<title>Registro de usuarios</title>
+		<title>Modificación de datos de usuario</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
 	</head>
 	
@@ -18,38 +18,48 @@
 			
 			Template::menu($usuario); //pone el menú
 		?>
-		
-		<section id="content">
-			<h2>Formulario de registro</h2>
+	
+			
+			<h2>Formulario de modificación de datos</h2>
+			
 			<form method="post" enctype="multipart/form-data" autocomplete="off">
+				
+				<figure>
+					<img class="imagenactual" src="<?php echo $usuarioM->imagen;?>" 
+						alt="<?php echo  $usuarioM->user;?>" />
+				</figure>
+				
+				
 				<label>User:</label>
 				<input type="text" name="user" required="required" 
-					pattern="^[a-zA-Z]\w{2,9}" title="3 a 10 caracteres (numeros, letras o guión bajo), comenzando por letra"/><br/>
+					readonly="readonly" value="<?php echo $usuarioM->user;?>" /><br/>
 				
-				<label>Password:</label>
-				<input type="password" name="password" required="required" 
-					pattern=".{4,16}" title="4 a 16 caracteres"/><br/>
+				<label>Password actual:</label>
+				<input type="password" name="password" required="required" /><br/>
+				
+				<label>Nuevo password:</label>
+				<input type="password" name="newpassword" pattern=".{4,16}" title="4 a 16 caracteres"/>
+				<span class="mini">En blanco para no modificar el actual</span><br/>
+				
 				
 				<label>Nombre:</label>
-				<input type="text" name="nombre" required="required"/><br/>
-				
-				<label>Privilegio:</label>
-				<input type="number" name="privilegio" required="required"/><br/>
-				
-				<label>admin:</label>
-				<input type="number" name="admin" required="required"  patern="0\1\2" /><br/>
+				<input type="text" name="nombre" required="required" 
+					value="<?php echo $usuarioM->nombre;?>"/><br/>
 				
 				<label>Email:</label>
-				<input type="email" name="email" required="required"/><br/>
+				<input type="email" name="email" required="required" 
+					value="<?php echo $usuarioM->email;?>"/><br/>
 				
-				<label>Imagen:</label>
+				<label>Nueva imagen:</label>
 				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_image_size;?>" />		
 				<input type="file" accept="image/*" name="imagen" />
-				<span>max <?php echo intval($max_image_size/1024);?>kb</span><br />
+				<span class="mini">max <?php echo intval($max_image_size/1024);?>kb</span><br />
 				
 				<label></label>
-				<input type="submit" name="guardar" value="guardar"/><br/>
+				<input type="submit" name="modificar" value="modificar"/><br/>
 			</form>
+			
+				
 		</section>
 		
 		<?php Template::footer();?>

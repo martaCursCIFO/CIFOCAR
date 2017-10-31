@@ -30,6 +30,8 @@
 				$u->user = $conexion->real_escape_string($_POST['user']);
 				$u->password = MD5($conexion->real_escape_string($_POST['password']));
 				$u->nombre = $conexion->real_escape_string($_POST['nombre']);
+				$u->privilegio = $conexion->real_escape_string($_POST['privilegio']);
+				$u->admin = $conexion->real_escape_string($_POST['admin']);
 				$u->email = $conexion->real_escape_string($_POST['email']);
 				$u->imagen = Config::get()->default_user_image;
 				
@@ -60,10 +62,10 @@
 			//si no hay usuario identificado... error
 			if(!Login::getUsuario())
 				throw new Exception('Debes estar identificado para poder modificar tus datos');
-				
+				$uu=Login::getUsuario();
+			
 			//si no llegan los datos a modificar
 			if(empty($_POST['modificar'])){
-				
 				//mostramos la vista del formulario
 				$datos = array();
 				$datos['usuario'] = Login::getUsuario();
@@ -145,7 +147,7 @@
 		            $datos['usuario'] = Login::getUsuario();
 		            $datos['usuarioM'] = $usuarioRecuperado;
 		            $datos['max_image_size'] = Config::get()->user_image_max_size;
-		            $this->load_view('view/usuarios/modificacion.php', $datos);
+		            $this->load_view('view/usuarios/Editar.php', $datos);
 		            
 		            //si llegan los datos por POST
 		        }else{
@@ -244,6 +246,48 @@
 				$datos['mensaje'] = 'Eliminado OK';
 				$this->load_view('view/exito.php', $datos);
 			}
+		}
+		
+		//PROCEDIMIENTO PARA DAR DE BORRAR UN USUARIO
+		//solicita confirmación
+		public function borrar($id){
+		    //recuperar usuario
+		    $us = Login::getUsuario();
+		    $u = UsuarioModel::getUsuarioPorId($id);
+		    
+		    //asegurarse que el usuario está identificado
+		    if(!$u) throw new Exception('Debes estar identificado para poder darte de baja');
+		    
+		    //si no nos están enviando la conformación de baja
+		    if(empty($_POST['confirmar'])){
+		        //carga el formulario de confirmación
+		        $datos = array();
+		        $datos['usuario'] = $us;
+		        $datos['usuarioborrar'] = $u;
+		        $this->load_view('view/usuarios/baja.php', $datos);
+		        
+		        //si nos están enviando la confirmación de baja
+		    }else{
+		        //validar password
+		        $p = MD5(Database::get()->real_escape_string($_POST['password']));
+		        if($us->password != $p)
+		            throw new Exception('El password no coincide, no se puede procesar la baja');
+		            
+		            //de borrar el usuario actual en la BDD
+		            if(!$u->borrar())
+		                throw new Exception('No se pudo dar de baja');
+		                
+		                //borra la imagen (solamente en caso que no sea imagen por defecto)
+		                if($u->imagen!=Config::get()->default_user_image)
+		                    @unlink($u->imagen);
+		                    
+		                    
+		                    //mostrar la vista de éxito
+		                    $datos = array();
+		                    $datos['usuario'] = null;
+		                    $datos['mensaje'] = 'Eliminado OK';
+		                    $this->load_view('view/exito.php', $datos);
+		    }
 		}
 		
 		//PROCEDIMIENTO PARA LISTAR LAS USUARIOS

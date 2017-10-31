@@ -24,6 +24,7 @@
 			<p>Por favor, confirma tu solicitud de baja introduciendo el password asociado a tu cuenta.</p>
 		
 			<form method="post" autocomplete="off">
+				<label>Usuario a borrar:     <?php echo $usuarioborrar->nombre; ?></label> <br/><br/>
 				<label>User:</label>
 				<input type="text" readonly="readonly" value="<?php echo $usuario->user;?>" /><br/>
 				

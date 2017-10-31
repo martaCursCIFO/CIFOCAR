@@ -1,15 +1,15 @@
 <?php
 class UsuarioModel{
     //PROPIEDADES
-    public $id, $user, $password, $nombre, $privilegio, $email, $admin=0, $imagen='', $fecha;
+    public $id, $user, $password, $nombre, $privilegio, $admin=0, $email, $imagen='', $fecha;
     
     //METODOS
     //guarda el usuario en la BDD
     public function guardar(){
         $user_table = Config::get()->db_user_table;
         // creamos la consulta
-        $consulta = "INSERT INTO $user_table(user, password, nombre, privilegio, email, admin, imagen)
-			VALUES ('$this->user','$this->password','$this->nombre',$this->privilegio,'$this->email',$this->admin, '$this->imagen');";
+        $consulta = "INSERT INTO $user_table(user, password, nombre, privilegio, admin, email, imagen)
+			VALUES ('$this->user','$this->password','$this->nombre',$this->privilegio,$this->admin,'$this->email', '$this->imagen');";
         
         return Database::get()->query($consulta);
     }
@@ -74,7 +74,8 @@ class UsuarioModel{
     
     public static function getUsuarioPorId($id){
         $user_table = Config::get()->db_user_table;
-        $consulta = "SELECT * FROM $user_table WHERE id='$id';";
+        $consulta = "SELECT * FROM $user_table WHERE id=$id;";
+        
         $resultado = Database::get()->query($consulta);
         
         $us = $resultado->fetch_object('UsuarioModel');
@@ -95,7 +96,7 @@ class UsuarioModel{
     }
     
     // Este metodo recupera todos los usuarios
-    public static function getUsuarios($l=10, $o=0, $t='user', $c='privilegio', $co='admin', $so='ASC'){
+    public static function getUsuarios($l=10, $o=0, $t='', $c='nombre', $co='nombre', $so='ASC'){
         // preparar consulta
 
         $consulta = "SELECT * FROM usuarios
