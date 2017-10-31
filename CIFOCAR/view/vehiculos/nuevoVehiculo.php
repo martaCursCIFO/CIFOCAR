@@ -3,7 +3,7 @@
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
-		<title>Receta nueva</title>
+		<title>Nuevo Vehiculo</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
 	</head>
 	
@@ -18,26 +18,53 @@
 		?>
 		
 		<section id="content">
-			<h2>Receta</h2>
+			<h2>Nuevo Vehículo</h2>
 			<form method="post" enctype="multipart/form-data" autocomplete="off">
-				<label>Nombre:</label>
-				<input type="text" name="nombre" required="required" /><br/>
-				
-				<label>Descripción:</label>
-				<textarea name="descripcion"></textarea><br/>
-				
-				<label>Ingredientes:</label>
-				<input type="text" name="ingredientes" /><br/>
-				
-				<label>Dificultad:</label>
-				<select name="dificultad">
-					<option value="alta">Alta</option>
-					<option value="media">Media</option>
-					<option value="baja">Baja</option>
+			
+				<label>Marca:</label>
+				<select name="marca">
+					<?php 
+					foreach ($marcas as $marca){
+					    echo '<option value="'.$marca->marca.'">'.$marca->marca.'</option>';
+					}
+					?>
 				</select><br/>
 				
-				<label>Tiempo:</label>
-				<input type="number" name="tiempo" /><br/>
+				<label>Modelo:</label>
+				<input type="text" name="modelo" required="required" /><br/>
+				
+				<label>Matricula:</label>
+				<input type="text" name="matricula" required="required" /><br/>
+				
+				<label>Kilómetros:</label>
+				<input type="number" name="kms" required="required" /><br/>
+				
+				<label>Año de matriculación:</label>
+				<input type="number" name="any_matriculacion" required="required" /><br/>
+				
+				<label>Caballos:</label>
+				<input type="number" name="caballos" required="required" /><br/>
+				
+				<label>Color:</label>
+				<input type="text" name="color" required="required" /><br/>
+				
+				<label>Precio Venta:</label>
+				<input type="number" name="precio_venta" required="required" /><br/>
+				
+				<label>Precio Compra:</label>
+				<input type="number" name="precio_compra" required="required" /><br/>
+				
+				<label>Estado:</label>
+				<select name="estado">
+					<option value="0">en venta</option>
+					<option value="1">reservado</option>
+					<option value="2" selected>vendido</option>
+					<option value="3">devolución</option>
+					<option value="4">baja</option>
+				</select><br/>
+				
+				<label>Detalles:</label>
+				<textarea name="detalles"></textarea><br/>
 				
 				<label>Imagen:</label>
 				<input type="file" name="imagen" accept="image/*" required=”required” /><br>

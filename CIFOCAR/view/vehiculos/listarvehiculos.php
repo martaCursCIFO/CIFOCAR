@@ -59,10 +59,10 @@
 					<th>Marca</th>
 					<th>Modelo</th>
 					<th>Matricula</th>
-					<th>Any_matriculacion</th>
+					<th>Año matriculación</th>
 					<th>Kilometros</th>
 					<th>Estado</th>
-					<th>Operaciones</th>
+					<th colspan="3">Operaciones</th>
 				</tr>
 				<?php 
 				foreach($vehiculos as $vehiculo){
@@ -75,6 +75,8 @@
 				        echo "<td>$vehiculo->kms</td>";
 				        echo "<td>$vehiculo->estado</td>";
 				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=ver&parametro=$vehiculo->id'><img class='boton' src='images/buttons/view.png' alt='ver detalles' title='ver detalles'/></a></td>";
+				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=editar&parametro=$vehiculo->id'><img class='boton' src='images/buttons/edit.png' alt='editar' title='editar'/></a></td>";
+				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=borrar&parametro=$vehiculo->id'><img class='boton' src='images/buttons/delete.png' alt='borrar' title='borrar'/></a></td>";
 				    echo "</tr>";
 				}
 				?>

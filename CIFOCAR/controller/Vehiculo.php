@@ -3,7 +3,7 @@
 	class Vehiculo extends Controller{
 
 		//PROCEDIMIENTO PARA GUARDAR UN VEHICULO
-	    public function nueva(){
+	    public function nuevoVehiculo(){
 	        //comprobar si eres responsalbe de compras
 	        if(!Login::getUsuario() || login::getUsuario()->privilegio!=1)
 	            throw new Exception('Debes ser Responsable de Compras');
@@ -11,9 +11,14 @@
 	            //comprova si t'han enviat el formulari
 	            if(empty($_POST['guardar'])){ //si no l'han enviat...
 	                //mostramos la vista del formulario
+	                $this->load('model/MarcaModel.php');
+	                $marcas = MarcaModel::getMarcas();
 	                $datos = array();
 	                $datos['usuario'] = Login::getUsuario();
+	                $datos['marcas'] = $marcas;
 	                $this->load_view('view/vehiculos/nuevoVehiculo.php', $datos);
+	                
+	                
 	                
 	                //si llegan los datos por POST
 	            }else{
@@ -32,9 +37,8 @@
 	                $vehiculo->kms = $conexion->real_escape_string($_POST['kms']);
 	                $vehiculo->caballos = $conexion->real_escape_string($_POST['caballos']);
 	                $vehiculo->estado = $conexion->real_escape_string($_POST['estado']);
-	                $vehiculo->any_matriculacion = $conexion->real_escape_string($_POST['matriculacion']);
+	                $vehiculo->any_matriculacion = $conexion->real_escape_string($_POST['any_matriculacion']);
 	                $vehiculo->detalles = $conexion->real_escape_string($_POST['detalles']);
-	                $vehiculo->imagen = $conexion->real_escape_string($_POST['imagen']);
 	                $vehiculo->marca = $conexion->real_escape_string($_POST['marca']);
 	                
 	       
@@ -151,16 +155,16 @@
 		
 		//PROCEDIMIENTO PARA EDITAR UN VEHICULO
 		public function editar($id=0){
-		    //comprobar que el usuario es admin
-		    if(!Login::isAdmin())
-		        throw new Exception('Debes ser admin');
+		    //comprobar si eres responsalbe de compras
+		    if(!Login::getUsuario() || login::getUsuario()->privilegio!=1)
+		        throw new Exception('Debes ser Responsable de Compras');
 		    
 		    //comprobar que me llega un id
 		    if(!$id)
 		        throw new Exception('No se indicó la id de la vehiculo');
 		        
 		    //recuperar la vehiculo con esa id
-		    $this->load('model/vehiculoModel.php');
+		    $this->load('model/VehiculoModel.php');
 		    $vehiculo = VehiculoModel::getVehiculo($id);
 		    
 		    //comprobar que existe la vehiculo

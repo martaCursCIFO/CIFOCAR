@@ -69,14 +69,15 @@ body{
 /* HEADER */
 header{
 	padding: 20px;
-	background-color: #eef;
+	background-color: grey;
 	background-image: url('../images/template/header.jpg');
 	background-size: 120%;
 	background-position: 0% 50%;
 	background-repeat: no-repeat;
 	color: white;
 	text-shadow: 1px 1px 3px #000;
-	border: solid 2px orange;
+	border: solid 2px red;
+	border-radius: 15px;
 }
 
 header{
@@ -133,7 +134,7 @@ header hgroup{
 
 /* BARRA DE NAVEGACION */
 nav{
-	background-color: orange;
+	background-color: red;
 	color: white;
 	display: flex;
 }
@@ -157,7 +158,7 @@ nav ul.menu>li{
 	transition: 0.5s;
 }
 nav ul.menu>li:hover{
-	color: orange;
+	color: black;
 	background-color: white;	
 }
 
@@ -180,7 +181,7 @@ nav ul.menu>li:hover{
 }
 
 #content h1, #content h2{
-	color: orange;
+	color: red;
 }
 
 #content table{
@@ -190,7 +191,7 @@ nav ul.menu>li:hover{
 
 #content table th{
 	color: white;
-	background-color: orange;
+	background-color: red;
 	text-align: center;
 	font-weight: bold;
 }
@@ -198,7 +199,7 @@ nav ul.menu>li:hover{
 	padding: 2px;
 }
 #content table tr:nth-of-type(even){
-	background-color: #fea;
+	background-color: #ff8989;
 }
 #content table tr:nth-of-type(odd){
 	background-color: white;
@@ -211,7 +212,7 @@ nav ul.menu>li:hover{
 #content table img.miniatura{
 	height: 40px;
 	width: 40px;
-	border:solid 2px orange;
+	border:solid 2px red;
 }
 
 #content table .boton{
@@ -245,7 +246,7 @@ nav ul.menu>li:hover{
 }
 
 #content form.filtro label{
-	color: orange;
+	color: red;
 	font-style: italic;
 }
 
@@ -259,7 +260,7 @@ nav ul.menu>li:hover{
 	background-color: white;
 	padding: 3%;
 	margin: 10px 3% 10px 0%;
-	box-shadow: 0px 0px 4px orange;
+	box-shadow: 0px 0px 4px red;
 }
 
 #content .contenedor .imagen{
@@ -275,7 +276,7 @@ nav ul.menu>li:hover{
 
 #content ul.paginacion li{
 	display: inline-block;
-	background-color: orange;
+	background-color: red;
 	color: white;
 	padding: 5px;
 	transition: 0.5s;
@@ -283,8 +284,8 @@ nav ul.menu>li:hover{
 
 #content ul.paginacion li:hover{
 	background-color: white;
-	color: orange;
-	box-shadow: 0px 0px 2px orange;
+	color: black;
+	box-shadow: 0px 0px 2px red;
 }
 
 #content ul.paginacion{
@@ -309,7 +310,7 @@ nav ul.menu>li:hover{
 /* FOOTER */
 footer{
 	padding: 20px;
-	background-color: orange;
+	background-color: red;
 	
 	background-image: url('../images/logos/wide.png');
 	background-repeat: no-repeat;
@@ -318,5 +319,5 @@ footer{
 }
 
 footer a:hover{
-	color: orange;
+	color: white;
 }

@@ -56,10 +56,10 @@ class Template{
 				if($usuario && $usuario->privilegio==1){	?>
 				<ul class="menu">
 					<li><a href="index.php?controlador=Vehiculo&operacion=listarvehiculos">Listar Vehiculos</a></li>
-					<li><a href="index.php?controlador=Marca&operacion=nuevoVehiculo">Nuevo Vehículo</a></li>
+					<li><a href="index.php?controlador=Vehiculo&operacion=nuevoVehiculo">Nuevo Vehículo</a></li>
 					<li><a href="index.php?controlador=Marca&operacion=nuevaMarca">Nueva Narca</a></li>
 					<li><a href="index.php?controlador=Marca&operacion=listarmarcas">Listar Marcas</a></li>
-					<li><a href="index.php?controlador=Marca&operacion=modificarUsuario">Modificar Usuario</a></li>
+					<li><a href="index.php?controlador=Usuario&operacion=modificarUsuario">Modificar Usuario</a></li>
 				</ul>
 				<?php } 
 				
