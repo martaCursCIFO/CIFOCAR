@@ -6,11 +6,10 @@ class Template{
 			<header>
 				<figure>
 					<a href="index.php">
-						<img alt="Robs Micro Framework logo" src="images/logos/logo.png" />
+						<img alt="logo Cifocar" title="logo Cifocar" src="images/logos/logo-cifocar.png" />
 					</a>
 				</figure>
 				<hgroup>
-					<h1>Concesionario CIFOCAR</h1>
 					<h2>Compra y Venta de vehículos de segunda mano</h2>
 				</hgroup>
 			</header>
@@ -85,17 +84,11 @@ class Template{
 		//PONE EL PIE DE PAGINA
 		public static function footer(){	?>
 			<footer>
-				<p>
-					<a href="http://recursos.robertsallent.com/mvc/robs_micro_fw_1.0.zip">
-						RobS micro Framework</a> - solo para fines docentes
-				</p>
-				<p> 
-					<a rel="author" href="http://www.robertsallent.com">Robert Sallent</a>
-					<a href="http://www.twitter.com/robertsallent">
-         				<img class="logo" alt="twitter logo" src="images/logos/twitter.png" />
-					</a> -  
-					<a href="https://www.facebook.com/cifovalles">CIFO del Vallès'16</a>. 
-         		</p>
+         			<p>IFOCAR concesionario:</p>
+         			<a href="#"> <img class="logo" alt="twitter logo" src="images/logos/twitter.png" />
+         			<a href="#"> <img class="logo" alt="twitter logo" src="images/logos/facebook.png" />
+         			
+				</a>
 			</footer>
 		<?php }
 	}
