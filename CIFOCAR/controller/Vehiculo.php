@@ -183,11 +183,17 @@
 		    //en caso contrario
 		      $conexion = Database::get();
 		      //actualizar los campos de la vehiculo con los datos POST
-		      $vehiculo->nombre = $conexion->real_escape_string($_POST['nombre']);
-		      $vehiculo->descripcion = $conexion->real_escape_string($_POST['descripcion']);
-		      $vehiculo->ingredientes = $conexion->real_escape_string($_POST['ingredientes']);
-		      $vehiculo->dificultad = $conexion->real_escape_string($_POST['dificultad']);
-		      $vehiculo->tiempo = intval($_POST['tiempo']);
+		      $vehiculo->matricula = $conexion->real_escape_string($_POST['matricula']);
+		      $vehiculo->modelo = $conexion->real_escape_string($_POST['modelo']);
+		      $vehiculo->color = $conexion->real_escape_string($_POST['color']);
+		      $vehiculo->precio_venta = $conexion->real_escape_string($_POST['precio_venta']);
+		      $vehiculo->precio_compra = $conexion->real_escape_string($_POST['precio_compra']);
+		      $vehiculo->kms = $conexion->real_escape_string($_POST['kms']);
+		      $vehiculo->caballos = $conexion->real_escape_string($_POST['caballos']);
+		      $vehiculo->estado = $conexion->real_escape_string($_POST['estado']);
+		      $vehiculo->any_matriculacion = $conexion->real_escape_string($_POST['any_matriculacion']);
+		      $vehiculo->detalles = $conexion->real_escape_string($_POST['detalles']);
+		      $vehiculo->marca = $conexion->real_escape_string($_POST['marca']);
 		      
 		      //tratamiento de la imagen
 		      $fichero = $_FILES['imagen'];
@@ -216,12 +222,12 @@
 		      //cargar la vista de éxito 
 	          $datos = array();
 	          $datos['usuario'] = Login::getUsuario();
-	          $datos['mensaje'] = "Datos de la vehiculo <a href='index.php?controlador=vehiculo&operacion=ver&parametro=$vehiculo->id'>'$vehiculo->nombre'</a> actualizados correctamente.";
+	          $datos['mensaje'] = "Datos de la vehiculo <a href='index.php?controlador=vehiculo&operacion=ver&parametro=$vehiculo->id'>'$vehiculo->matricula'</a> actualizados correctamente.";
 	          $this->load_view('view/exito.php', $datos);
 		    }
 		}
 		
-		//PROCEDIMIENTO PARA BORRAR UNA vehiculo
+		//PROCEDIMIENTO PARA BORRAR UN vehiculo
 		public function borrar($id=0){
 		   //comprobar que el usuario sea admin
 		   if(!Login::isAdmin())
@@ -232,7 +238,7 @@
 	           throw new Exception('No se indicó la vehiculo a borrar');
 		       
 	       //recuperar la vehiculo con esa id
-	       $this->load('model/vehiculoModel.php');
+	       $this->load('model/VehiculoModel.php');
 	       $vehiculo = VehiculoModel::getvehiculo($id);
 	       
 	       //comprobar que existe dicha vehiculo
@@ -246,7 +252,7 @@
 		      $datos = array();
 		      $datos['usuario'] = Login::getUsuario();
 		      $datos['vehiculo'] = $vehiculo; 
-		      $this->load_view('view/vehiculos/confirmarborrado.php', $datos);
+		      $this->load_view('view/vehiculos/confirmarborradoV.php', $datos);
 		   
 		   //si me envian el formulario...
 		   }else{

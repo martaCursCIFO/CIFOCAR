@@ -19,52 +19,74 @@
 			Template::menu($usuario); //pone el menú
 		?>
 		
-		<section id="content">
+			<h2>Formulario de modificación de datos Vehiculos</h2>
 			
-			<h2>Detalles del Vehiculo <?php echo $vehiculo->modelo;?></h2>
+			<form method="post" enctype="multipart/form-data" autocomplete="off">
+				
+				<figure>
+					<img class="imagenactual" src="<?php echo $vehiculo->imagen;?>" 
+						alt="<?php echo  $vehiculo->matricula;?>" />
+				</figure>
+				
+				
+				<label>Marca:</label>
+				<input type="text" name="marca" required="required" 
+					readonly="readonly" value="<?php echo $vehiculo->marca;?>" /><br/>
+				
+				<label>Modelo:</label>
+				<input type="text" name="modelo" required="required" 
+					value="<?php echo $vehiculo->modelo;?>"/><br/>
+					
+				<label>Matricula:</label>
+				<input type="text" name="matricula" required="required" 
+					value="<?php echo $vehiculo->matricula;?>"/><br/>
+				
+				<label>Color:</label>
+				<input type="text" name="color" required="required" 
+					value="<?php echo $vehiculo->color;?>"/><br/>
+
+				<label>Precio Venta::</label>
+				<input type="number" name="precio_venta" required="required" 
+					value="<?php echo $vehiculo->precio_venta;?>"/><br/>					
+
+				<label>Precio Compra:</label>
+				<input type="number" name="precio_compra" required="required" 
+					value="<?php echo $vehiculo->precio_compra;?>"/><br/>
+
+				<label>Kilometros:</label>
+				<input type="number" name="kms" required="required" 
+					value="<?php echo $vehiculo->kms;?>"/><br/>
+					
+				<label>Caballos:</label>
+				<input type="number" name="caballos" required="required" 
+					value="<?php echo $vehiculo->caballos;?>"/><br/>
+
+				<label>Fecha de Venta:</label>
+				<input type="date" name="fecha_venta" required="required" 
+					value="<?php echo $vehiculo->fecha_venta;?>"/><br/>
+
+				<label>Estado:</label>
+				<input type="number" name="estado" required="required" 
+					value="<?php echo $vehiculo->estado;?>"/><br/>
+
+				<label>Año de Matriculacion:</label>
+				<input type="number" name="any_matriculacion" required="required" 
+					value="<?php echo $vehiculo->any_matriculacion;?>"/><br/>
+
+				<label>Detalles:</label>
+				<input type="text" name="detalles" required="required" 
+					value="<?php echo $vehiculo->detalles;?>"/><br/>
+					
+				<label>Nueva imagen:</label>
+				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_image_size;?>" />		
+				<input type="file" accept="image/*" name="imagen" />
+				<span class="mini">max <?php echo intval($max_image_size/1024);?>kb</span><br />
+				
+				<label></label>
+				<input type="submit" name="modificar" value="modificar"/><br/>
+			</form>
 			
-			<div class="contenedor">
-    			<article class="texto">
- 
-        			<h3>Marca</h3>
-					<p><?php echo $vehiculo->marca;?></p>
-        			
-        			<h3>Matricula</h3>
-					<p><?php echo $vehiculo->matricula;?></p>
-        			
-        			
-        			<h3>Año Matriculacion</h3>
-        			<p><?php echo $vehiculo->any_matriculacion;?></p>
-        			
-        			<h3>Kilometros</h3>
-        			<p><?php echo $vehiculo->kms;?></p>
-        			
-           			<h3>Caballos</h3>
-        			<p><?php echo $vehiculo->caballos;?></p>
-
-           			<h3>Detalles</h3>
-        			<p><?php echo $vehiculo->detalles;?></p>
-        			        			
-          			<h3>Vendedor</h3>
-        			<p><?php echo $vehiculo->vendedor;?></p>
-
-          			<h3>Estado</h3>
-        			<p><?php echo $vehiculo->estado;?></p>
-        			
-        			<h3>Fecha Venta</h3>
-        			<p><?php echo $vehiculo->fecha_venta;?></p>
-        		</article>
-        		
-        		<figure class="imagen">
-        			<?php 
-        			echo "<img src='$vehiculo->imagen' alt='Imagen de $vehiculo->marca' title='Imagen de $vehiculo->marca'/>";
-        			echo "<figcaption>$vehiculo->modelo</figcaption>";
-        			?>
-        		</figure>	
-    		</div>	
-    		
-    		<p class="volver" onclick="history.back();">Atrás</p>
-    		
+				
 		</section>
 		
 		<?php Template::footer();?>
