@@ -46,6 +46,7 @@
 			<table>
 				<tr>
 					<th>Marca</th>
+					<th colspan="2">Operaciones</th>
 				</tr>
 				
 				<?php
