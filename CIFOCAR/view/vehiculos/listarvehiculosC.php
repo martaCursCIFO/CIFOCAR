@@ -20,7 +20,7 @@
 		?>
 		
 		<section id="content">
-			<h2>Listado de vehiculos</h2>
+			<h2>Listado de Vehiculos Compradores</h2>
 			
 			<p class="infolista">Hay <?php echo $totalRegistros; ?> registros<?php echo $filtro? ' para el filtro indicado':'';?>, 
 			mostrando del <?php echo ($paginaActual-1)*$regPorPagina+1;?> al <?php echo ($paginaActual-1)*$regPorPagina+sizeof($vehiculos);?>.</p>

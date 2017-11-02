@@ -69,7 +69,7 @@
 	    }
 		
 		
-		//PROCEDIMIENTO PARA LISTAR LOS vehiculos
+		//PROCEDIMIENTO PARA LISTAR LOS VEHICULOS
 		public function listarvehiculos($pagina){
 		    $this->load('model/VehiculoModel.php');
 		    
@@ -123,17 +123,13 @@
 		    $datos['totalRegistros'] = $totalRegistros;
 		    $datos['regPorPagina'] = $num;
 
-//            if(!Login::getUsuario() || login::isAdmin())
- //       		      $this->load_view('view/vehiculos/listarvehiculos_admin.php', $datos);
-  //          		    else
-   //         		      $this->load_view('view/vehiculos/listarvehiculos.php', $datos);
 
-             if(login::isAdmin())
-       		      $this->load_view('view/vehiculos/listarvehiculos.php', $datos);
-       		      if(login::getUsuario()->privilegio=1)
+		    if(login::isAdmin()) //Admin
+       		      $this->load_view('view/vehiculos/listarvehiculosA.php', $datos);
+       		      if(login::getUsuario()->privilegio=1 & !Login::isAdmin()) // Comprador
        		          $this->load_view('view/vehiculos/listarvehiculosC.php', $datos);
-       		          else
-         		      $this->load_view('view/vehiculos/listarvehiculos_admin.php', $datos);
+       		          if(login::getUsuario()->privilegio=2 & !Login::isAdmin())  // Vendedor
+           		          $this->load_view('view/vehiculos/listarvehiculosV.php', $datos);
   
 		}
 		
@@ -233,7 +229,7 @@
 		    }
 		}
 		
-		//PROCEDIMIENTO PARA BORRAR UN vehiculo
+		//PROCEDIMIENTO PARA BORRAR UN VEHICULO
 		public function borrar($id=0){
 		   //comprobar que el usuario sea admin
 		    if(!Login::isAdmin())

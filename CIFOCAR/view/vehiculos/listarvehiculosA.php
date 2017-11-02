@@ -20,7 +20,7 @@
 		?>
 		
 		<section id="content">
-			<h2>Listado de vehiculos Administrador</h2>
+			<h2>Listado de Vehiculos Administrador</h2>
 			
 			<p class="infolista">Hay <?php echo $totalRegistros; ?> registros<?php echo $filtro? ' para el filtro indicado':'';?>, 
 			mostrando del <?php echo ($paginaActual-1)*$regPorPagina+1;?> al <?php echo ($paginaActual-1)*$regPorPagina+sizeof($vehiculos);?>.</p>
@@ -59,7 +59,7 @@
 					<th>Marca</th>
 					<th>Modelo</th>
 					<th>Matricula</th>
-					<th>Any_matriculacion</th>
+					<th>Año matriculación</th>
 					<th>Kilometros</th>
 					<th>Estado</th>
 					<th colspan="3">Operaciones</th>
@@ -75,7 +75,8 @@
 				        echo "<td>$vehiculo->kms</td>";
 				        echo "<td>$vehiculo->estado</td>";
 				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=ver&parametro=$vehiculo->id'><img class='boton' src='images/buttons/view.png' alt='ver detalles' title='ver detalles'/></a></td>";
-				        echo "</tr>";
+				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=borrar&parametro=$vehiculo->id'><img class='boton' src='images/buttons/delete.png' alt='borrar' title='borrar'/></a></td>";
+				    echo "</tr>";
 				}
 				?>
 			</table>
