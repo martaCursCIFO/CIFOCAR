@@ -18,9 +18,7 @@
             if($l>0) $consulta.="LIMIT $l ";
             if($o>0) $consulta.="OFFSET $o";
 		    
-            //echo $consulta;
-            
-		    //ejecutar la consulta
+             //ejecutar la consulta
 		    $resultados = Database::get()->query($consulta);
 		    
 		    //prepara la lista

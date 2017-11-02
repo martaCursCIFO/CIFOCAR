@@ -67,7 +67,7 @@
 	        $filtro = empty($_SESSION['filtromarcas'])? false : unserialize($_SESSION['filtromarcas']);
 		        
 		    //para la paginación
-		    $num = 5; //numero de resultados por página
+		    $num = 10; //numero de resultados por página
 		    $pagina = abs(intval($pagina)); //para evitar cosas raras por url
 		    $pagina = empty($pagina)? 1 : $pagina; //página a mostrar
 		    $offset = $num*($pagina-1); //offset
@@ -75,7 +75,7 @@
 		    //si no hay que filtrar los resultados...
 		    if(!$filtro){
 		      //recupera todas las marcas
-		      $marcas = MarcaModel::getMarcas();
+		      $marcas = MarcaModel::getMarcas($num, $offset);
 		      //total de registros (para paginación)
 		      $totalRegistros = MarcaModel::getTotal();
 		    }else{
