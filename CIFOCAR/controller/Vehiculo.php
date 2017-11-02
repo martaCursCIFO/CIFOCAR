@@ -123,11 +123,18 @@
 		    $datos['totalRegistros'] = $totalRegistros;
 		    $datos['regPorPagina'] = $num;
 
-            if(!Login::getUsuario() || login::getUsuario()->privilegio==1)
-        		      $this->load_view('view/vehiculos/listarvehiculos.php', $datos);
-            		    else
-            		      $this->load_view('view/vehiculos/listarvehiculos_admin.php', $datos);
-		    
+//            if(!Login::getUsuario() || login::isAdmin())
+ //       		      $this->load_view('view/vehiculos/listarvehiculos_admin.php', $datos);
+  //          		    else
+   //         		      $this->load_view('view/vehiculos/listarvehiculos.php', $datos);
+
+             if(login::isAdmin())
+       		      $this->load_view('view/vehiculos/listarvehiculos.php', $datos);
+       		      if(login::getUsuario()->privilegio=1)
+       		          $this->load_view('view/vehiculos/listarvehiculosC.php', $datos);
+       		          else
+         		      $this->load_view('view/vehiculos/listarvehiculos_admin.php', $datos);
+  
 		}
 		
 		//PROCEDIMIENTO PARA VER LOS DETALLES DE UN VEHICULO
@@ -229,8 +236,8 @@
 		//PROCEDIMIENTO PARA BORRAR UN vehiculo
 		public function borrar($id=0){
 		   //comprobar que el usuario sea admin
-		   if(!Login::isAdmin())
-		       throw new Exception('Debes ser ADMIN');
+		    if(!Login::isAdmin())
+		        throw new Exception('Debes ser Administrador');
 		   
 	       //comprobar que se ha indicado un id
 	       if(!$id)
