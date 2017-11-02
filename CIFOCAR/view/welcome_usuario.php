@@ -13,18 +13,15 @@
 		
 		<?php 
 			Template::header(); //pone el header
-		?>
-		<br/>
-		<?php
-			Template::menu($usuario); //pone el menú
-		?>
-
-		<section id="welcome">
-			<h2>Bienvenido al sistema de Cifocar</h2>
-			<?php 
+			
 			if(!$usuario) Template::login(); //pone el formulario de login
 			else Template::logout($usuario); //pone el formulario de logout
-			?>
+			
+			Template::menu($usuario); //pone el menú
+		?>
+		<br/>
+		
+		<section id="welcome">
 			
 		</section>
 		

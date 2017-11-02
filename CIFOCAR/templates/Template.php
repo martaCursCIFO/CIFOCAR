@@ -18,18 +18,21 @@ class Template{
 		
 		//PONE EL FORMULARIO DE LOGIN
 		public static function login(){?>
-			<form method="post" id="login" autocomplete="off">
-				<input type="text" placeholder="usuario" name="user" required="required" />
-				<input type="password" placeholder="clave" name="password" required="required"/>
-				<input type="submit" name="login" value="Login" />
-			</form>
+			<section id="usuario">
+				<form method="post" id="login" autocomplete="off">
+    				<input type="text" placeholder="usuario" name="user" required="required" /><br/>
+    				<input type="password" placeholder="clave" name="password" required="required"/><br/>
+    				<input type="submit" name="login" value="Login" />
+    			</form>
+			</section>
+			
 		<?php }
 		
 		
 		//PONE LA INFO DEL USUARIO IDENTIFICADO Y EL FORMULARIOD E LOGOUT
 		public static function logout($usuario){	?>
 			<div id="logout">
-				<script type="text/javascript"> var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"); var f=new Date(); document.write(diasSemana[f.getDay()] + " " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + " -- "); </script>
+				<script type="text/javascript"> var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); var diasSemana = new Array("Domingo","Lunes","Martes","Miï¿½rcoles","Jueves","Viernes","Sï¿½bado"); var f=new Date(); document.write(diasSemana[f.getDay()] + " " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + " -- "); </script>
 				<span>
 					Hola 
 					<a href="index.php?controlador=Usuario&operacion=modificacion" title="modificar datos">
@@ -84,7 +87,7 @@ class Template{
 		//PONE EL PIE DE PAGINA
 		public static function footer(){	?>
 			<footer>
-         			<p>IFOCAR concesionario:</p>
+         			<p>CIFOCAR concesionario:</p>
          			<a href="#"> <img class="logo" alt="twitter logo" src="images/logos/twitter.png" />
          			<a href="#"> <img class="logo" alt="twitter logo" src="images/logos/facebook.png" />
          			
