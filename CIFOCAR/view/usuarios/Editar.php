@@ -33,14 +33,7 @@
 				<label>User:</label>
 				<input type="text" name="user" required="required" 
 					readonly="readonly" value="<?php echo $usuarioM->user;?>" /><br/>
-				
-				<label>Password actual:</label>
-				<input type="password" name="password" required="required" /><br/>
-				
-				<label>Nuevo password:</label>
-				<input type="password" name="newpassword" pattern=".{4,16}" title="4 a 16 caracteres"/>
-				<span class="mini">En blanco para no modificar el actual</span><br/>
-				
+		
 				
 				<label>Nombre:</label>
 				<input type="text" name="nombre" required="required" 
