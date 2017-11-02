@@ -31,14 +31,14 @@
 				<input type="text" name="texto" placeholder="buscar..."/>
 				<select name="campo">
 					<option value="marca">marca</option>
-					<option value="dificultad">dificultad</option>
-					<option value="tiempo">tiempo</option>
+					<option value="modelo">modelo</option>
+					<option value="estado">estado</option>
 				</select>
 				<label>Orden:</label>
 				<select name="campoOrden">
 					<option value="marca">nombre</option>
-					<option value="dificultad">dificultad</option>
-					<option value="tiempo">tiempo</option>
+					<option value="modelo">modelo</option>
+					<option value="estado">estado</option>
 				</select>
 				<select name="sentidoOrden">
 					<option value="ASC">ascendente</option>

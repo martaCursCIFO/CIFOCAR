@@ -151,22 +151,14 @@
 		            
 		            //si llegan los datos por POST
 		        }else{
-		            //recuperar los datos actuales del usuario
-		            $u = Login::getUsuario();
-		            $conexion = Database::get();
+		    
+		               $conexion = Database::get();
 		            
 		            //comprueba que el usuario se valide correctamente
-		            $p = MD5($conexion->real_escape_string($_POST['password']));
-		            if($u->password != $p)
-		                throw new Exception('El password no coincide, no se puede procesar la modificación');
-		                
-		                //recupera el nuevo password (si se desea cambiar)
-		                if(!empty($_POST['newpassword']))
-		                    $u->password = MD5($conexion->real_escape_string($_POST['newpassword']));
-		                    
+		               
 		                    //recupera el nuevo nombre y el nuevo email
-		                    $u->nombre = $conexion->real_escape_string($_POST['nombre']);
-		                    $u->email = $conexion->real_escape_string($_POST['email']);
+		               $usuarioRecuperado->nombre = $conexion->real_escape_string($_POST['nombre']);
+		               $usuarioRecuperado->email = $conexion->real_escape_string($_POST['email']);
 		                    
 		                    //TRATAMIENTO DE LA NUEVA IMAGEN DE PERFIL (si se indicó)
 		                    if($_FILES['imagen']['error']!=4){
@@ -179,14 +171,14 @@
 		                        
 		                        //guarda la imagen antigua en una var para borrarla
 		                        //después si todo ha funcionado correctamente
-		                        $old_img = $u->imagen;
+		                        $old_img = $usuarioRecuperado->imagen;
 		                        
 		                        //sube la nueva imagen
-		                        $u->imagen = $upload->upload_image();
+		                        $usuarioRecuperado->imagen = $upload->upload_image();
 		                    }
 		                    
 		                    //modificar el usuario en BDD
-		                    if(!$u->actualizar())
+		                    if(!$usuarioRecuperado->actualizar())
 		                        throw new Exception('No se pudo modificar');
 		                        
 		                        //borrado de la imagen antigua (si se cambió)
@@ -196,7 +188,7 @@
 		                            
 		                            //hace de nuevo "login" para actualizar los datos del usuario
 		                            //desde la BDD a la variable de sesión.
-		                            Login::log_in($u->user, $u->password);
+		                            Login::log_in($usuarioRecuperado->user, $usuarioRecuperado->password);
 		                            
 		                            //mostrar la vista de éxito
 		                            $datos = array();
