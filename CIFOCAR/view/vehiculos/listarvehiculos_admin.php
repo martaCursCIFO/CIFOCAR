@@ -31,14 +31,14 @@
 				<input type="text" name="texto" placeholder="buscar..."/>
 				<select name="campo">
 					<option value="marca">marca</option>
-					<option value="dificultad">dificultad</option>
-					<option value="tiempo">tiempo</option>
+					<option value="modelo">modelo</option>
+					<option value="estado">estado</option>
 				</select>
 				<label>Orden:</label>
 				<select name="campoOrden">
 					<option value="marca">nombre</option>
-					<option value="dificultad">dificultad</option>
-					<option value="tiempo">tiempo</option>
+					<option value="modelo">modelo</option>
+					<option value="estado">estado</option>
 				</select>
 				<select name="sentidoOrden">
 					<option value="ASC">ascendente</option>
@@ -75,8 +75,6 @@
 				        echo "<td>$vehiculo->kms</td>";
 				        echo "<td>$vehiculo->estado</td>";
 				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=ver&parametro=$vehiculo->id'><img class='boton' src='images/buttons/view.png' alt='ver detalles' title='ver detalles'/></a></td>";
-				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=editar&parametro=$vehiculo->id'><img class='boton' src='images/buttons/edit.png' alt='editar' title='editar'/></a></td>";
-				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=borrar&parametro=$vehiculo->id'><img class='boton' src='images/buttons/delete.png' alt='borrar' title='borrar'/></a></td>";
 				        echo "</tr>";
 				}
 				?>

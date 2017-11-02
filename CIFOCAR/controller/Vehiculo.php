@@ -122,14 +122,13 @@
 		    $datos['paginas'] = ceil($totalRegistros/$num); //total de páginas (para paginación)
 		    $datos['totalRegistros'] = $totalRegistros;
 		    $datos['regPorPagina'] = $num;
+
+            if(!Login::getUsuario() || login::getUsuario()->privilegio==1)
+        		      $this->load_view('view/vehiculos/listarvehiculos.php', $datos);
+            		    else
+            		      $this->load_view('view/vehiculos/listarvehiculos_admin.php', $datos);
 		    
-		    if(Login::isAdmin())
-		      $this->load_view('view/vehiculos/listarvehiculos_admin.php', $datos);
-		    else
-		      $this->load_view('view/vehiculos/listarvehiculos.php', $datos);
 		}
-		
-		
 		
 		//PROCEDIMIENTO PARA VER LOS DETALLES DE UN VEHICULO
 		public function ver($id=0){
