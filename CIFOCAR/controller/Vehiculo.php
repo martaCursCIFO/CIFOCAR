@@ -36,7 +36,7 @@
 	                $vehiculo->precio_compra = $conexion->real_escape_string($_POST['precio_compra']);
 	                $vehiculo->kms = $conexion->real_escape_string($_POST['kms']);
 	                $vehiculo->caballos = $conexion->real_escape_string($_POST['caballos']);
-	                $vehiculo->estado = $conexion->real_escape_string($_POST['estado']);
+	                $vehiculo->estado = 0;
 	                $vehiculo->any_matriculacion = $conexion->real_escape_string($_POST['any_matriculacion']);
 	                $vehiculo->detalles = $conexion->real_escape_string($_POST['detalles']);
 	                $vehiculo->marca = $conexion->real_escape_string($_POST['marca']);
@@ -124,12 +124,12 @@
 		    $datos['regPorPagina'] = $num;
 
 
-		    if(login::getUsuario()->privilegio==0) //Admin
-       		      $this->load_view('view/vehiculos/listarvehiculosA.php', $datos);
-       		      if(login::getUsuario()->privilegio==1) // Comprador
-       		          $this->load_view('view/vehiculos/listarvehiculosC.php', $datos);
-       		          if(login::getUsuario()->privilegio==2)  // Vendedor
-           		          $this->load_view('view/vehiculos/listarvehiculosV.php', $datos);
+		    if(Login::getUsuario()->admin) //Admin
+       		           $this->load_view('view/vehiculos/listarvehiculosA.php', $datos);
+       		if(Login::getUsuario()->privilegio==1) // Comprador
+       		               $this->load_view('view/vehiculos/listarvehiculosC.php', $datos);
+       		if(Login::getUsuario()->privilegio==2)  // Vendedor
+           		                   $this->load_view('view/vehiculos/listarvehiculosV.php', $datos);
   
 		}
 		
@@ -155,11 +155,11 @@
 		}
 		
 		
-		//PROCEDIMIENTO PARA EDITAR UN VEHICULO
+		//PROCEDIMIENTO PARA EDITAR UN VEHICULO VENDEDOR
 		public function editar($id=0){
-		    //comprobar si eres responsalbe de compras
-		    if(!Login::getUsuario() || login::getUsuario()->privilegio!=1)
-		        throw new Exception('Debes ser Responsable de Compras');
+		    //comprobar si eres vendedor
+		    if(!Login::getUsuario() || login::getUsuario()->privilegio==1  || login::getUsuario()->privilegio==0)
+		        throw new Exception('Debes ser Vendedor');
 		    
 		    //comprobar que me llega un id
 		    if(!$id)
@@ -179,42 +179,43 @@
 		        $datos = array();
 		        $datos['usuario'] = Login::getUsuario();
 		        $datos['vehiculo'] = $vehiculo;
-		        $this->load_view('view/vehiculos/modificar.php', $datos);
+		         $this->load_view('view/vehiculos/modificarV.php', $datos);
 
 		    }else{
 		    //en caso contrario
 		      $conexion = Database::get();
 		      //actualizar los campos de la vehiculo con los datos POST
-		      $vehiculo->matricula = $conexion->real_escape_string($_POST['matricula']);
-		      $vehiculo->modelo = $conexion->real_escape_string($_POST['modelo']);
-		      $vehiculo->color = $conexion->real_escape_string($_POST['color']);
-		      $vehiculo->precio_venta = $conexion->real_escape_string($_POST['precio_venta']);
-		      $vehiculo->precio_compra = $conexion->real_escape_string($_POST['precio_compra']);
-		      $vehiculo->kms = $conexion->real_escape_string($_POST['kms']);
-		      $vehiculo->caballos = $conexion->real_escape_string($_POST['caballos']);
-		      $vehiculo->estado = $conexion->real_escape_string($_POST['estado']);
-		      $vehiculo->any_matriculacion = $conexion->real_escape_string($_POST['any_matriculacion']);
-		      $vehiculo->detalles = $conexion->real_escape_string($_POST['detalles']);
-		      $vehiculo->marca = $conexion->real_escape_string($_POST['marca']);
+		     // $vehiculo->matricula = $conexion->real_escape_string($_POST['matricula']);
+		      //$vehiculo->modelo = $conexion->real_escape_string($_POST['modelo']);
+		      //$vehiculo->color = $conexion->real_escape_string($_POST['color']);
+		      $vehiculo->precio_venta = floatval($_POST['precio_venta']);
+		      //$vehiculo->precio_compra = $conexion->real_escape_string($_POST['precio_compra']);
+		      //$vehiculo->kms = $conexion->real_escape_string($_POST['kms']);
+		      //$vehiculo->caballos = $conexion->real_escape_string($_POST['caballos']);
+		      $vehiculo->estado = intval($_POST['estado']);
+		      //$vehiculo->any_matriculacion = $conexion->real_escape_string($_POST['any_matriculacion']);
+		      //$vehiculo->detalles = $conexion->real_escape_string($_POST['detalles']);
+		      //$vehiculo->marca = $conexion->real_escape_string($_POST['marca']);
 		      
 		      //tratamiento de la imagen
-		      $fichero = $_FILES['imagen'];
+		      //$fichero = $_FILES['imagen'];
 		      
 		      //si me indican una nueva imagen
-		      if($fichero['error']!=UPLOAD_ERR_NO_FILE){
-		          $fotoAntigua = $vehiculo->imagen;
+		     // if($fichero['error']!=UPLOAD_ERR_NO_FILE){
+		       //   $fotoAntigua = $vehiculo->imagen;
 		          
 		          //subir la nueva imagen
-		          $destino = 'images/vehiculos/';
-		          $tam_maximo = 1000000;
-		          $renombrar = true;
+		          //$destino = 'images/vehiculos/';
+		          //$tam_maximo = 1000000;
+		          //$renombrar = true;
 		          
-		          $upload = new Upload($fichero, $destino , $tam_maximo, $renombrar);
-		          $vehiculo->imagen = $upload->upload_image();
+		          //$upload = new Upload($fichero, $destino , $tam_maximo, $renombrar);
+		          //$vehiculo->imagen = $upload->upload_image();
 		          
 		          //borrar la antigua
-		          unlink($fotoAntigua);
-		      }
+		         // unlink($fotoAntigua);
+		      //  }
+		
 		      
 		      
 		      //modificar la vehiculo en la BDD
@@ -228,6 +229,80 @@
 	          $this->load_view('view/exito.php', $datos);
 		    }
 		}
+		
+		//PROCEDIMIENTO PARA EDITAR UN VEHICULO COMPRADOR
+		public function editarC($id=0){
+		    //comprobar si eres comprador
+		    if(!Login::getUsuario() || login::getUsuario()->privilegio==2  || login::getUsuario()->privilegio==0)
+		        throw new Exception('Debes ser responsable de Compras');
+		        
+		        //comprobar que me llega un id
+		        if(!$id)
+		            throw new Exception('No se indicó la id de la vehiculo');
+		            
+		            //recuperar la vehiculo con esa id
+		            $this->load('model/VehiculoModel.php');
+		            $vehiculo = VehiculoModel::getVehiculo($id);
+		            
+		            //comprobar que existe la vehiculo
+		            if(!$vehiculo)
+		                throw new Exception('No existe la vehiculo');
+		                
+		                //si no me están enviando el formulario
+		                if(empty($_POST['modificar'])){
+		                    //poner el formulario
+		                    $datos = array();
+		                    $datos['usuario'] = Login::getUsuario();
+		                    $datos['vehiculo'] = $vehiculo;
+		                      $this->load_view('view/vehiculos/modificarC.php', $datos);
+
+		                            
+		                }else{
+		                    //en caso contrario
+		                    $conexion = Database::get();
+		                    //actualizar los campos de la vehiculo con los datos POST
+		                    $vehiculo->matricula = $conexion->real_escape_string($_POST['matricula']);
+		                    $vehiculo->modelo = $conexion->real_escape_string($_POST['modelo']);
+		                    $vehiculo->color = $conexion->real_escape_string($_POST['color']);
+		                    //$vehiculo->precio_venta = floatval($_POST['precio_venta']);
+		                    $vehiculo->precio_compra = $conexion->real_escape_string($_POST['precio_compra']);
+		                    $vehiculo->kms = $conexion->real_escape_string($_POST['kms']);
+		                    $vehiculo->caballos = $conexion->real_escape_string($_POST['caballos']);
+		                    //$vehiculo->estado = intval($_POST['estado']);
+		                    $vehiculo->any_matriculacion = $conexion->real_escape_string($_POST['any_matriculacion']);
+		                    $vehiculo->detalles = $conexion->real_escape_string($_POST['detalles']);
+		                    $vehiculo->marca = $conexion->real_escape_string($_POST['marca']);
+		                    
+		                    //tratamiento de la imagen
+		                    $fichero = $_FILES['imagen'];
+		                    
+		                    //si me indican una nueva imagen
+		                     if($fichero['error']!=UPLOAD_ERR_NO_FILE){
+		                       $fotoAntigua = $vehiculo->imagen;
+		                        
+		                        //subir la nueva imagen
+		                        $destino = 'images/vehiculos/';
+		                        $tam_maximo = 1000000;
+		                        $renombrar = true;
+		                        
+		                        $upload = new Upload($fichero, $destino , $tam_maximo, $renombrar);
+		                        $vehiculo->imagen = $upload->upload_image();
+		                        
+		                        //borrar la antigua
+		                         unlink($fotoAntigua);
+		                          }
+                      
+		                        //modificar la vehiculo en la BDD
+		                        if(!$vehiculo->actualizar())
+		                            throw new Exception('No se pudo actualizar');
+		                            
+		                            //cargar la vista de éxito
+		                            $datos = array();
+		                            $datos['usuario'] = Login::getUsuario();
+		                            $datos['mensaje'] = "Datos de la vehiculo <a href='index.php?controlador=vehiculo&operacion=ver&parametro=$vehiculo->id'>'$vehiculo->matricula'</a> actualizados correctamente.";
+		                            $this->load_view('view/exito.php', $datos);
+		                    }
+		                }
 		
 		//PROCEDIMIENTO PARA BORRAR UN VEHICULO
 		public function borrar($id=0){

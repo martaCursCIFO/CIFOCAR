@@ -97,7 +97,7 @@
 				        }
 				        
 				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=ver&parametro=$vehiculo->id'><img class='boton' src='images/buttons/view.png' alt='ver detalles' title='ver detalles'/></a></td>";
-				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=editar&parametro=$vehiculo->id'><img class='boton' src='images/buttons/edit.png' alt='editar' title='editar'/></a></td>";
+				        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=editarC&parametro=$vehiculo->id'><img class='boton' src='images/buttons/edit.png' alt='editar' title='editar'/></a></td>";
 					    echo "</tr>";
 				}
 				?>

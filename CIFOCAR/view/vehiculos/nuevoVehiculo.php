@@ -55,10 +55,10 @@
 				<input type="number" name="precio_compra" required="required" /><br/>
 				
 				<label>Estado:</label>
-				<select name="estado">
-					<option value="0">en venta</option>
+				<select name="estado"  disabled='disabled'>
+					<option value="0" selected="selected">en venta</option>
 					<option value="1">reservado</option>
-					<option value="2" selected>vendido</option>
+					<option value="2" >vendido</option>
 					<option value="3">devolución</option>
 					<option value="4">baja</option>
 				</select><br/>

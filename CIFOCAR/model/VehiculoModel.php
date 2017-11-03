@@ -106,7 +106,8 @@
                              any_matriculacion=$this->any_matriculacion,
                              detalles='$this->detalles',
                              imagen='$this->imagen',
-                             marca='$this->marca'
+                             marca='$this->marca',
+                            estado=$this->estado
 						  WHERE id=$this->id;";
 			return Database::get()->query($consulta);
 		}

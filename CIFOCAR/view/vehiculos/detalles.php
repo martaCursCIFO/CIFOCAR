@@ -49,8 +49,32 @@
         			<p><?php echo $vehiculo->vendedor;?></p>
 
           			<h3>Estado</h3>
-        			<p><?php echo $vehiculo->estado;?></p>
-        			
+        			<p><?php
+
+			        switch ($vehiculo->estado)
+				        {
+				            case 0:
+				                echo "<td>En Venta</td>";
+				                break;
+				            case 1:
+				                echo "<td>Reservado</td>";
+				                break;
+				            case 2:
+				                echo "<td>Vendido</td>";
+				                break;
+				            case 3:
+				                echo "<td>Devolucion</td>";
+				                break;
+				            case 4:
+				                echo "<td>Baja</td>";
+				                break;
+				            default:
+				                echo "<td> </td>";
+				                break;
+				        }
+?></p>
+
+       			
         			<h3>Fecha Venta</h3>
         			<p><?php echo $vehiculo->fecha_venta;?></p>
         		</article>
