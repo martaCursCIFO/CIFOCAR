@@ -123,12 +123,15 @@
 		    $datos['totalRegistros'] = $totalRegistros;
 		    $datos['regPorPagina'] = $num;
 
-
-		    if(login::getUsuario()->privilegio==0) //Admin
+		    //var_dump(Login::getUsuario());
+		    
+		    if(Login::getUsuario()->admin) //Admin
        		      $this->load_view('view/vehiculos/listarvehiculosA.php', $datos);
-       		      if(login::getUsuario()->privilegio==1) // Comprador
+		    
+	        if(Login::getUsuario()->privilegio==1) // Comprador
        		          $this->load_view('view/vehiculos/listarvehiculosC.php', $datos);
-       		          if(login::getUsuario()->privilegio==2)  // Vendedor
+	        
+            if(Login::getUsuario()->privilegio==2)  // Vendedor
            		          $this->load_view('view/vehiculos/listarvehiculosV.php', $datos);
   
 		}
