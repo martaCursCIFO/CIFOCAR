@@ -68,6 +68,23 @@
 		    return $lista;
 		}
 		
+		//método que me recupere todas las matriculas de los vehiculos
+		//PROTOTIPO: public static array<VehiculoModel> getVehiculos()
+		public static function getVehiculosM($matricula){
+		 
+		    //preparar la consulta
+		    $consulta = "SELECT * FROM vehiculos WHERE matricula='$matricula';";
+		    
+		    //conecto a la BDD y ejecuto la consulta
+		    $conexion = Database::get();
+		    $resultado = $conexion->query($consulta);
+
+		    $us = $resultado->fetch_object('VehiculoModel');
+		    $resultado->free();
+		    return $us;
+		    
+		}
+		
 		
 		//Método que me recupera un vehiculo a partir de su ID
 		//PROTOTIPO: public static VehiculoModel getVehiculo(number $id=0);

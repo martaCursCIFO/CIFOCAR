@@ -68,6 +68,18 @@
 	            }
 	    }
 		
+	    //COMPROBAR SI UNA MATRICULA YA ESTA REGISTRADA (para Ajax - formulario registro)
+	    public function comprobar(){
+	        
+	        if(empty($_POST['matricula'])) return;
+	        
+	        $this->load('model/VehiculoModel.php');
+	        $matricula = htmlspecialchars($_POST['matricula']);
+	        
+	        if(VehiculoModel::getVehiculosM($matricula))
+	            echo 'matricula ya registrado';
+	    }
+	    
 		
 		//PROCEDIMIENTO PARA LISTAR LOS VEHICULOS
 		public function listarvehiculos($pagina){

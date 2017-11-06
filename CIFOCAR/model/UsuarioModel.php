@@ -13,6 +13,19 @@ class UsuarioModel{
         
         return Database::get()->query($consulta);
     }
+
+    
+    //este método debería retornar un usuario creado con los datos
+    //de la BDD (o NULL si no existe), a partir de un nombre de usuario
+    public static function getUsuario($u){
+    $user_table = Config::get()->db_user_table;
+    $consulta = "SELECT * FROM $user_table WHERE user='$u';";
+    $resultado = Database::get()->query($consulta);
+    
+    $us = $resultado->fetch_object('UsuarioModel');
+    $resultado->free();
+    return $us;
+    }
     
     
     //actualiza los datos del usuario en la BDD por usuario
@@ -59,17 +72,7 @@ class UsuarioModel{
         return $r;
     }
     
-    //este método debería retornar un usuario creado con los datos
-    //de la BDD (o NULL si no existe), a partir de un nombre de usuario
-    public static function getUsuario($u){
-        $user_table = Config::get()->db_user_table;
-        $consulta = "SELECT * FROM $user_table WHERE user='$u';";
-        $resultado = Database::get()->query($consulta);
-        
-        $us = $resultado->fetch_object('UsuarioModel');
-        $resultado->free();
-        return $us;
-    }
+    
     
     
     public static function getUsuarioPorId($id){

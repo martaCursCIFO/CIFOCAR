@@ -5,6 +5,7 @@
 		<meta charset="UTF-8">
 		<title>Nuevo Vehiculo</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
+		<script src="js/jquery.js"></script>
 	</head>
 	
 	<body>
@@ -34,7 +35,23 @@
 				<input type="text" name="modelo" required="required" /><br/>
 				
 				<label>Matricula:</label>
-				<input type="text" name="matricula" required="required" /><br/>
+				<input type="text" id="matricula" name="matricula" required="required" />
+				<span id="registroMatricula" class="error"></span><br/>
+				<script>
+                	//cuando cargue el documento
+                	$(document).ready(function(){
+                                
+                    //cuando introduzca la matricula…
+                    $('#matricula').change(function(){
+
+                        //crea el objeto con los datos a pasar al script PHP
+                      	var datos = {'matricula': $(this).val()};
+                
+                      	//invoca el script PHP y muestra el resultado en el span con id="registroMatricula"
+                      	$('#registroMatricula').load('index.php?controlador=Vehiculo&operacion=comprobar', datos);
+                    });
+                });
+                </script> 
 				
 				<label>Kilómetros:</label>
 				<input type="number" name="kms" required="required" /><br/>

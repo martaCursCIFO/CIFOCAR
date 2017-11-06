@@ -57,6 +57,18 @@
 			}
 		}
 		
+		
+		//COMPROBAR SI UN USUARIO ESTA YA REGISTRADO (para Ajax - formulario registro)
+		public function comprobar(){
+		    if(empty($_POST['user'])) return;
+		    
+		    $user = htmlspecialchars($_POST['user']);
+		    
+		    if(UsuarioModel::getUsuario($user))
+		        echo 'Usuario ya registrado';
+		}
+		
+		
 		//PROCEDIMIENTO PARA MODIFICAR UN USUARIO
 		public function modificacion(){
 			//si no hay usuario identificado... error

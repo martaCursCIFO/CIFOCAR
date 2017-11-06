@@ -7,6 +7,7 @@
 		<meta charset="UTF-8">
 		<title>Registro de usuarios</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
+		<script src="js/jquery.js"></script>
 	</head>
 	
 	<body>
@@ -22,9 +23,27 @@
 		<section id="content">
 			<h2>Formulario de registro</h2>
 			<form method="post" enctype="multipart/form-data" autocomplete="off">
+			
 				<label>User:</label>
-				<input type="text" name="user" required="required" 
-					pattern="^[a-zA-Z]\w{2,9}" title="3 a 10 caracteres (numeros, letras o guión bajo), comenzando por letra"/><br/>
+				<input type="text" id="user" name="user" required="required" 
+					pattern="^[a-zA-Z]\w{2,9}" title="3 a 10 caracteres (numeros, letras o guión bajo), comenzando por letra"/>
+					<span id="registrado" class="error"></span><br/>
+					
+				<script>
+                	//cuando cargue el documento
+                	$(document).ready(function(){
+                                
+                    //cuando cambien el usuario…
+                    $('#user').change(function(){
+
+                        //crea el objeto con los datos a pasar al script PHP
+                      	var datos = {'user': $(this).val()};
+                
+                      	//invoca el script PHP y muestra el resultado en el span con id="registrado"
+                      	$('#registrado').load('index.php?controlador=Usuario&operacion=comprobar', datos);
+                    });
+                });
+                </script> 
 				
 				<label>Password:</label>
 				<input type="password" name="password" required="required" 
